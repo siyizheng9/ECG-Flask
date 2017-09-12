@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="static/css/mqtt.css">
+{% endblock %}
+
+{% block title %}MQTT JS Client{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>MQTT JS Client</h1>
+</div>
+
+<div id="server_info" class="panel panel-default">
+    
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Server Info <span id="server_status" class="label label-default">status</span> </h3>
+                    </div>
+    
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Host</span>
+                        <input id="server_host"  type="text" class="form-control" placeholder="Host name or ip address" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Port</span>
+                        <input id="server_port" type="text" class="form-control" placeholder="Port number" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Topic</span>
+                        <input id="server_topic" type="text" class="form-control" placeholder="Topic to subscribe" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Client ID</span>
+                        <input id="client_id" type="text" class="form-control" placeholder="Client ID" aria-describedby="basic-addon1">
+                    </div>
+                    <button id="connect_btn" type="button" class="btn btn-default">Connect</buttdon>
+    
+                </div> <!-- end of server_info div -->
+    
+                <div id="mqtt_message" class="panel panel-default">
+    
+                    <div class="panel-heading">
+                        <h3 class="panel-title">MQTT MESSAGE LOG 
+                            <span id="msg_log_btn" class="label label-success">enabled</span>
+                            <span id="msg_clear_btn" class="badge badge-info">clear</span>
+                        </h3>
+                    </div>
+    
+                    <div class="panel-body">
+                        <ul id="messageList">
+                        </ul>
+                    </div>
+    
+                </div> <!-- end of mqtt_message div -->
+    
+                <div id="ecg_demo" class="panel panel-default">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                        <canvas id="demo" width=800 height=300></canvas><br>
+                    </div>
+                </div>
+    
+            </div> <!-- end of div page -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<!-- mqtt client -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<!-- ecg data -->
+<script src="static/js/data.js" type="text/javascript"></script>
+<!-- ecg canvas script -->
+<script src="static/js/ecg_canvas.js" type="text/javascript"></script>
+<!-- our own script -->
+<script src="static/js/mqtt.js" type="text/javascript"></script>
+{% endblock %}
