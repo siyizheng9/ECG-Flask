@@ -22,7 +22,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    MONGO_URI = 'mongodb://192.168.1.103:32017/kafkaconnect'
+    MONGO_URI = 'mongodb://mongo-svc:27017/kafkaconnect'
 
 
 config = {
