@@ -4,6 +4,8 @@ console.log("hello world");
 var connection = new Object();
 connection.hostname = "192.168.1.101";
 connection.port = 30831;
+// connection.hostname = "mqtt-svc";
+// connection.port = 1883;
 connection.topic = "paho/test/simple"
 connection.client_id = "clientid-" + makeid();
 
