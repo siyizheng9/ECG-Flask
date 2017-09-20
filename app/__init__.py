@@ -5,6 +5,7 @@ from config import config
 from flask_admin import Admin
 from flask_pymongo import PyMongo
 from .models import DataView
+from .myadminview import MyAdminView
 
 bootstrap = Bootstrap()
 moment = Moment()
@@ -25,6 +26,7 @@ def create_app(config_name):
 
     with app.app_context():
         admin.add_view(DataView(mongo.db['kafkatopic']))
+        admin.add_view(MyAdminView(name="view1", category='Test'))
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
