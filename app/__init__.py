@@ -6,6 +6,7 @@ import flask_admin as admin
 from flask_pymongo import PyMongo
 from .models import DataView
 from .myadminview import downloadForm
+from .data_download import download_data
 
 bootstrap = Bootstrap()
 moment = Moment()
@@ -19,9 +20,10 @@ class MyAdminView(admin.BaseView):
     def index(self):
         form = downloadForm()
         if request.method == 'POST':
-            print(request.method, form.collection.data)
-            words = 'downloading ' + form.collection.data
-            return self.render('myadmin.html', words=words)
+            collection_name = form.collection.data
+            print(request.method, collection_name)
+            data = download_data(mongo.db, collection_name)
+            return self.render('myadmin.html', words=data)
         else:
             collections = mongo.db.collection_names()
             choices = [(c, c) for c in collections]
