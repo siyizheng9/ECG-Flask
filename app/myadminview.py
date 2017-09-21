@@ -1,8 +1,7 @@
-import flask_admin as admin
+from flask_wtf import FlaskForm
+from wtforms import SelectField, SubmitField
 
 
-# Create custom admin view
-class MyAdminView(admin.BaseView):
-    @admin.expose('/')
-    def index(self):
-        return self.render('myadmin.html')
+class downloadForm(FlaskForm):
+    collection = SelectField(u'Collections', coerce=str, choices=[('example', 'example')])
+    submit = SubmitField('Download')

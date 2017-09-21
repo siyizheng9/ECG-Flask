@@ -1,4 +1,9 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends 'admin/master.html' %}
 {% block body %}
-    Hello World from MyAdmin!
+    {% if form %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+
+    {{ words }}
 {% endblock %}
