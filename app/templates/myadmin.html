@@ -1,12 +1,11 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% extends 'admin/master.html' %}
 {% block body %}
+
+<div class="input-group">
     {% if form %}
     {{ wtf.quick_form(form) }}
     {% endif %}
-
-    {% for data in words %}
-    <li>{{ data }}</li>
-    {% endfor %}
+</div>
 
 {% endblock %}
