@@ -6,7 +6,8 @@ connection.hostname = "192.168.1.101";
 connection.port = 30831;
 // connection.hostname = "mqtt-svc";
 // connection.port = 1883;
-connection.topic = "paho/test/simple"
+// connection.topic = "paho/test/simple"
+connection.topic = "ecg/test/+/data"
 connection.client_id = "clientid-" + makeid();
 
 var client;
@@ -65,7 +66,8 @@ function onConnect() {
   updateStatus(true);
   client.subscribe(connection.topic);
   var message = new Paho.MQTT.Message("Hello " + connection.client_id);
-  message.destinationName = connection.topic;
+  // message.destinationName = connection.topic;
+  message.destinationName = "ecg/test/client_web/data";
   client.send(message);
   isConnected = true;
 }
