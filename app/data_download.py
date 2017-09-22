@@ -15,16 +15,22 @@ def download_data(db, collection_name):
 
     data = []
     iterator = iter(collection.find())
+
+    obj = next(iterator)
+    data.append(obj['mMessage'])
+    client_id = obj['client_id']
+    print(client_id)
+
     for i in range(20):
         obj = next(iterator)
         data.append(obj['mMessage'])
-    print(data)
-    write_to_file(data, collection_name)
+    # print(data)
+    write_to_file(data, collection_name + '-' + client_id)
     return data
 
 
-def write_to_file(data, collection_name):
-    file = open(getPath(collection_name), 'w')
+def write_to_file(data, filename):
+    file = open(getPath(filename), 'w')
     for item in data:
         file.write(item)
         file.write("\n")
