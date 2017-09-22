@@ -8,7 +8,7 @@ from flask_pymongo import PyMongo
 from .models import DataView
 from .myadminview import downloadForm
 from flask_admin.contrib.fileadmin import FileAdmin
-from .data_download import download_data
+from .data_download import download_data, COLLECTION
 
 bootstrap = Bootstrap()
 moment = Moment()
@@ -22,16 +22,18 @@ class MyAdminView(admin.BaseView):
     def index(self):
         form = downloadForm()
         if request.method == 'POST':
-            collection_name = form.collection.data
-            print(request.method, collection_name)
+            client_id = form.client_id.data
+            print(request.method, client_id)
+            if client_id == "None":
+                return self.render('myadmin.html', form=form)
             # data = download_data(mongo.db, collection_name)
-            download_data(mongo.db, collection_name)
-            filename = collection_name + '.csv'
+            download_data(mongo.db, client_id)
+            filename = COLLECTION + '_' + client_id + '.csv'
             return redirect(url_for('mydownloadview.download', path=filename))
         else:
-            collections = mongo.db.collection_names()
-            choices = [(c, c) for c in collections]
-            form.collection.choices = choices
+            client_id_list = mongo.db[COLLECTION].distinct('client_id')
+            choices = [(c, c) for c in client_id_list]
+            form.client_id.choices = choices
             return self.render('myadmin.html', form=form)
 
 
@@ -55,10 +57,10 @@ def create_app(config_name):
     mongo.init_app(app)
 
     path = os.path.join(os.path.dirname(__file__), 'data')
-    print('path:', path)
+    # print('path:', path)
 
     with app.app_context():
-        myadmin.add_view(DataView(mongo.db['kafkatopic']))
+        myadmin.add_view(DataView(mongo.db[COLLECTION]))
         myadmin.add_view(MyAdminView(name="Download"))
         myadmin.add_view(MyDownloadView(path, name='Data file'))
 
