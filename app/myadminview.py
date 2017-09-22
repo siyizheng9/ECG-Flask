@@ -3,5 +3,5 @@ from wtforms import SelectField, SubmitField
 
 
 class downloadForm(FlaskForm):
-    collection = SelectField(u'Collections', coerce=str, choices=[('example', 'example')])
+    client_id = SelectField(u'Client ID', coerce=str, choices=[])
     submit = SubmitField('Download')
