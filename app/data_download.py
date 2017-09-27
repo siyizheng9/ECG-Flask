@@ -24,10 +24,10 @@ def download_data(db, client_id):
     print("msg count:", msglen)
 
     data = []
-    iterator = iter(msglist)
-    for i in range(20 if 20 < msglen else msglen):
-        obj = next(iterator)
-        data.append(obj['mMessage'])
+    # iterator = iter(msglist)
+    # for i in range(20 if 20 < msglen else msglen):
+    for i in msglist:
+        data.append(i['mMessage'])
     # print(data)
     write_to_file(data, COLLECTION + '_' + client_id)
     return data
