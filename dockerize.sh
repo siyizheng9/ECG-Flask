@@ -2,10 +2,12 @@
 
 docker build .
 
+TAG='zsy9docker/ecg-flask'
+
 ID=$(docker images |grep none|awk '{print $3}')
 
-echo "docker image id: $ID"
+echo "\nnew generated docker image id: $ID\n"
 
-docker tag $ID zsy9docker/ecg-flask
+docker tag $ID $TAG
 
-docker push zsy9docker/ecg-flask
+docker push $TAG
